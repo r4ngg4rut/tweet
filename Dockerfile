@@ -2,18 +2,15 @@ FROM python:3.10-slim
 
 WORKDIR /app
 
-# Install dependensi dasar Linux agar library C/Rust seperti solders & curl_cffi lancar
-RUN apt-get update && apt-get install -y --no-install-recommends \
-    build-essential \
-    curl \
-    && rm -rf /var/lib/apt/lists/*
+# Install pip wheel versi terbaru agar tidak perlu compile dari source
+RUN pip install --no-cache-dir --upgrade pip setuptools wheel
 
-# Copy dan install requirements
+# Copy requirements dan install
 COPY requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt
 
-# Copy seluruh file skrip & targets.txt
+# Copy seluruh source code
 COPY . .
 
-# Jalankan skrip utama
+# Jalankan script
 CMD ["python", "tweetv2.py"]
