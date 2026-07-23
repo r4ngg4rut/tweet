@@ -1,0 +1,6 @@
+curl-cffi
+msgpack
+websocket-client
+websockets
+solders
+colorama
