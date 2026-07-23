@@ -1,8 +1,10 @@
+import os
 import sys
 import time
 import re
 import uuid
 import threading
+from http.server import HTTPServer, BaseHTTPRequestHandler
 from datetime import datetime
 from collections import deque
 from colorama import init, Fore, Style
@@ -12,6 +14,22 @@ from curl_cffi import requests
 from solders.keypair import Keypair
 
 init(autoreset=True)
+
+# Dummy HTTP Handler agar Caasify menganggap server 'Healthy'
+class HealthCheckHandler(BaseHTTPRequestHandler):
+    def do_GET(self):
+        self.send_response(200)
+        self.end_headers()
+        self.wfile.write(b"OK - Bot Running")
+
+def start_dummy_server():
+    port = int(os.environ.get("PORT", 8080)) # Port otomatis dari Caasify
+    server = HTTPServer(('0.0.0.0', port), HealthCheckHandler)
+    print(f"[*] Health Check HTTP Server aktif di port {port}")
+    server.serve_forever()
+
+# Jalankan server HTTP di background thread
+threading.Thread(target=start_dummy_server, daemon=True).start()
 
 # =====================================================================
 # KONFIGURASI
