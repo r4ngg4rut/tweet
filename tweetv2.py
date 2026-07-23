@@ -35,8 +35,8 @@ threading.Thread(target=start_dummy_server, daemon=True).start()
 # KONFIGURASI
 # =====================================================================
 # (Opsional) Isi jika ingin notifikasi otomatis dikirim ke Telegram
-TELEGRAM_BOT_TOKEN = "8819923714:AAEO9NL4WebuZ8Hc5s1zzwW7ovNl6NNVG8A"  # Contoh: "123456789:ABCdef..."
-TELEGRAM_CHAT_ID = "-1003977092390"    # Contoh: "987654321"
+TELEGRAM_BOT_TOKEN = os.environ.get("TELEGRAM_BOT_TOKEN", "")
+TELEGRAM_CHAT_ID   = os.environ.get("TELEGRAM_CHAT_ID", "")
 
 def load_targets(filepath="targets.txt"):
     targets = []
