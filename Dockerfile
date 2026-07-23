@@ -16,4 +16,4 @@ RUN pip install --no-cache-dir -r requirements.txt
 COPY . .
 
 # Jalankan skrip utama
-CMD ["python", "tweet.py"]
+CMD ["python", "tweetv2.py"]
